@@ -1,0 +1,29 @@
+table tr td {
+  padding: 0px;
+}
+
+table tbody {
+  background-color: #FFFF;
+}
+
+.bg-info {
+  color: #FFFF;
+}
+table {
+  font-family: medium-content-serif-font,Georgia,Cambria,"Times New Roman",Times,serif;
+}
+
+.correct {
+  color: #4CAF50;
+
+}
+.incorrect {
+ color: rgba(255, 0, 0, 0.54)
+}
+.bg-clr {
+  background-color: #ffff;
+}
+
+.chrt-card {
+  min-height: 285px !important;
+}

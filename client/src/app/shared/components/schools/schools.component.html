@@ -1,0 +1,121 @@
+<div class="body">
+  <!-- header div start here -->
+  <div class="row col-md-12 heading">
+    <div class="col-6">
+      <h3>Available Schools</h3>
+    </div>
+    <div class="col-6 text-right">
+      <button [routerLink]="['/', urlPrefix, 'schools','add']" class="btn btn-primary align-middle"><i class="fa fa-plus"></i>Add School</button>
+    </div>
+  </div>
+  <!-- header div end here -->
+  <div class="row col-md-12 view-container">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 user-card" *ngFor="let school of schools let i=index; ">
+      <!-- card div start here -->
+      <div class="card">
+        <!-- card header div start here -->
+        <div class="profile-img text-center">
+          <img *ngIf="i%2===0" class="card-img-top rounded-circle" alt="Responsive image" src="./../../../assets/images/user/school_profile.jpg" alt="Card image cap"> 
+          <img  *ngIf="i%2!=0" class="card-img-top rounded-circle" alt="Responsive image" src="./../../../assets/images/user/school_profile_type2.png" alt="Card image cap">
+
+        </div>
+        <!-- card header div end here -->
+        <!-- card body div start here -->
+        <div class="card-body"> 
+          <div class="text-center uname"><strong>{{school.schoolName}}</strong></div>
+          <div class="user-info">
+            <i class="fa fa-envelope" aria-hidden="true">&nbsp;{{school.email}}</i><br/>
+            <i class="fa fa-mobile" aria-hidden="true">&nbsp;{{school.phoneNo}}</i> <br/>
+            <i class="fa fa-map-marker" aria-hidden="true">&nbsp;{{school.address}} {{school.city}} {{school.state}}</i> 
+          </div>
+        </div>
+        <!-- card body div end here -->
+        <!-- card footer div start here -->
+        <div class="card-footer">
+          <div class="row text-center">
+            <div class="col-4"><a href="javascript:void(0)" (click)="getSchoolDetails(school._id,i)" data-toggle="modal" data-target="#stu-details"><i class="fa fa-eye" title="View more"></i></a></div>
+            <div class="col-4"><a href="javascript:void(0)" 
+             [routerLink]="['/', urlPrefix, 'schools', 'edit', school._id]"
+             ><i class="fa fa-pencil" title="Edit school"></i></a>
+           </div>
+           <div class="col-4"><a href="javascript:void(0)" (click)="delete(school._id)"> <i class="fa fa-trash" title="Delete school"></i></a></div>
+         </div>
+       </div>
+       <!-- card footer div end here -->
+     </div>
+     <!-- card div end here -->
+   </div>
+   <!-- pagination start here -->
+   <div class="col-12 custom-pgn">
+    <pagination class="pagination" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+  <!-- pagination end here -->
+</div>
+</div>
+
+<!--school details modal start here -->
+<div class="modal fade" id="stu-details" tabindex="-1" role="dialog"  
+aria-labelledby="title" aria-hidden="true"> <!-- data-backdrop="static" -->
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="title">Student Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" #close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="card-block row">
+          <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+            <div class="profile-img2 text-center">
+              <img *ngIf="schDetails.index % 2===0" class="card-img-top rounded-circle" alt="Responsive image" src="./../../../assets/images/user/school_profile.jpg" alt="Card image cap"> 
+              <img  *ngIf="schDetails.index % 2!==0" class="card-img-top rounded-circle" alt="Responsive image" src="./../../../assets/images/user/school_profile_type2.png" alt="Card image cap">
+            </div>
+          </div>
+          <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>School Name</td>
+                  <td>{{schDetails.schoolName}}</td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td>{{schDetails.email}}</td>
+                </tr>
+                <tr>
+                  <td>Mob. No.</td>
+                  <td>{{schDetails.phoneNo}}</td>
+                </tr>
+                <tr>
+                  <td>Address</td>
+                  <td>{{schDetails.address}}</td>
+                </tr>
+                <tr>
+                  <td>City</td>
+                  <td>{{schDetails.city}}</td>
+                </tr>
+                <tr>
+                  <td>State</td>
+                  <td>{{schDetails.state}}</td>
+                </tr> 
+                <tr>
+                  <td>Zip Code</td>
+                  <td>{{schDetails.zipCode}}</td>
+                </tr>
+                <tr *ngIf="schDetails.website">
+                  <td>Website</td>
+                  <td><a href="javascript:void(0)" (click)="redirectToWebsite(schDetails.website)">{{schDetails.website}}</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!--school details modal end here -->

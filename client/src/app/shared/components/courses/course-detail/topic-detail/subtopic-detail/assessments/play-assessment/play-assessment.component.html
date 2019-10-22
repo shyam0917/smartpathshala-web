@@ -1,0 +1,246 @@
+<!-- <div class="row body">
+  <h4 class="col-12 text-center mt-3">You are about to start the test</h4>
+  <div class="col-md-1"></div>
+  <div class="col-md-10 mb-4" style="border: 1px solid rgba(0,0,0,.125); background: #fff; font-size: 15px;">
+    <p class="ml-5 mt-4" [innerHTML]="insAtStart"></p>
+    <div class="pt-3 text-center">
+      <button class="mb-4 btn btn-primary btn-start" (click)="start()">Start</button>
+    </div>
+  </div>
+</div> -->
+
+<div class="row body" >
+  <div class="col-md-9 col-sm-12 scroll pr-0 pl-0">
+    <div class="assessment-head-section">
+      <div class="course-assessment-ques-section" >
+        <div class="course-assessment-icon-header">
+          <span><i class="fa fa-question"></i></span>
+        </div>
+        <div class="course-assessment-ques-header">
+          <h4>Questions</h4>
+          <label>{{assessmentQuestions.length}}</label>
+        </div>
+      </div>
+      <div class="course-assessment-score-section">
+        <div class="course-assessment-icon-header">
+          <span><i class="fa fa-diamond"></i></span>
+        </div>
+        <div class="course-assessment-score-header">
+          <h4>Score</h4>
+          <label>{{maxMarks}} pt</label>
+        </div>
+      </div>
+      <div class="col-1 push-7 assessment-buttons">
+        <button class="btn btn-primary" (click)="finishAssessment()">Finish</button>
+      </div>
+    </div>
+
+    <div class="course-assessment-container pl-3" >
+      <div class="assessment-questions-container">
+        <h3>Question {{questionNumber}} of {{assessmentQuestions.length}}</h3>
+        <div class="assessment-question">
+         <!--  <h2>Step by Step</h2> -->
+         <p class="qus">{{assessment.question}}
+            <!-- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consectetur consequuntur dignissimos dolorem dolores eaque error eum excepturi fugit in iste laboriosam, libero maiores neque officiis omnis, pariatur possimus, quidem suscipit tempora? A aperiam autem deleniti 
+            tempora, tenetur vitae. Dolorem quae quo recusandae similique? -->
+          </p>
+        </div>
+
+        <div class="buttons-container">
+          <div class="assessment-buttons pl-2">
+           <button class="btn btn-primary" data-toggle="collapse" data-target="#hint">
+            <i class="fa fa-lightbulb-o"></i>&nbsp;Hint
+          </button>
+          <button class="btn btn-success" (click)="markForReview()" >
+            <i class="fa fa-flag"></i>&nbsp;Mark review
+          </button>
+          <button class="btn btn-primary" href="javascript:void(0)" data-toggle="modal" data-target="#reportIssue">
+            <i class="fa fa-weixin"></i>&nbsp;Report issue
+          </button>
+
+          <div id="hint" class="collapse mt-2">
+           <div *ngIf="!assessment.hint; else showhint" class="mt-3 no-data-msg">
+             <span>No hint provided for this question</span>      
+           </div>
+           <ng-template class="mt-3" #showhint>
+             <span class="msg-info">{{assessment?.hint}}</span>     
+           </ng-template>
+         </div>
+
+       </div>
+     </div>
+
+   </div>
+
+   <div class="assessment-options-container">
+    <h3>Your Answer</h3>
+    <div class="assessment-options opt">
+      <div class="checkbox checkbox-primary" *ngFor="let option of assessment.options">
+
+        <div *ngIf="assessment.userAnswers.includes(option)">
+          <label>
+            <div *ngIf="assessment.qusType!==questionType[1]; else singleChoice">
+             <input type="radio" name="{{questionNumber}}" value="{{option}}" (change)="setSingleChoiceAnswers(option)" checked="true">
+           </div>
+           <ng-template #singleChoice>
+            <input type="checkbox" value="{{option}}" (change)="setMultipleChoiceAnswers(option,$event.target.checked)" checked="true">
+          </ng-template>
+          &nbsp;{{option}}
+        </label>
+      </div>
+
+      <div *ngIf="!assessment.userAnswers.includes(option)">
+        <label>
+          <div *ngIf="assessment.qusType!==questionType[1]; else singleChoice">
+            <input type="radio" name="{{questionNumber}}" value="{{option}}"  (change)="setSingleChoiceAnswers(option)" >
+          </div>
+          <ng-template #singleChoice>
+            <input type="checkbox" value="{{option}}" (change)="setMultipleChoiceAnswers(option,$event.target.checked)">
+          </ng-template>
+          &nbsp;{{option}}
+        </label>
+      </div>
+
+    </div>
+  </div>
+  <div class="assessment-buttons-container">
+    <div class="assessment-buttons">
+      <button class="btn btn-success" (click)="saveAnswer(questionNumber)" >
+        <i class="fa fa-save fa-fw"></i>&nbsp;Save answer
+      </button>
+
+      <button class="btn btn-primary" (click)="getNextQuestion(questionNumber+1)" *ngIf="questionNumber!==assessmentQuestions.length">
+        <i class="fa fa-chevron-right fa-fw"></i>&nbsp;Next question
+      </button>
+      <button class="btn btn-primary" (click)="submitAssessment(questionNumber)" *ngIf="questionNumber===assessmentQuestions.length">
+       Finish
+     </button>
+   </div>
+ </div>
+</div>
+</div>
+</div>
+<div class="col-md-3 col-sm-12 pl-0 pr-0">
+  <div *ngIf="assessmentDetails.type===assessmentTypes[1]" class="assessment-info-ttc">
+    <div class="assessment-info-time-container" >
+      <h3>Time to complete</h3>
+      <div class="assessment-info-time">
+        <label>
+          <span>{{hours<10 ? '0'+hours:hours}}</span>
+          <p>Hours</p>
+        </label>
+        <label>
+          <span>{{minutes<10 ? '0'+minutes:minutes}}</span>
+          <p>Minutes</p>
+        </label>
+        <label>
+          <span>{{seconds<10 ? '0'+seconds:seconds}}</span>
+          <p>Seconds</p>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="assessment-info-container">
+    <div class="assessment-info-question-set-container">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#quslist">Questions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#review">Mark for review <span class="badge badge-pill badge-success">{{questionsForReview.length}}</span></a>
+        </li>
+      </ul>
+      <div class="tab-content mt-2 qus-list-scroll">
+        <div id="quslist" class="container tab-pane active pl-1">
+         <div *ngFor="let question of assessmentQuestions let i=index">
+          <div class="assessment-info-ques-container">
+           <div *ngIf="(question.status == questionStatus[0] || question.status == questionStatus[2]) && questionNumber-1!==i">
+             <div style="background-color: #bdbdbd;" class="square">{{i+1}}</div>
+           </div>
+           <div *ngIf="question.status == questionStatus[1] && questionNumber-1!==i">
+             <div style="background-color: #5cb85c;" class="square">{{i+1}}</div>
+           </div> 
+           <div *ngIf="questionNumber-1===i" >
+             <div style="background-color: #42a5f5;" class="square">{{i+1}}</div>
+           </div> 
+           <div class="assessment-info-ques">
+            <a (click)="getNextQuestion(i+1)" href="javascript:void(0)">{{question.question | words:7}}</a>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    <div id="review" class="tab-pane fade in active pl-1">
+
+      <div *ngFor="let qusNo of questionsForReview">
+        <div class="assessment-info-ques-container">
+         <div *ngIf="(assessmentQuestions[qusNo].status == questionStatus[0] || assessmentQuestions[qusNo].status == questionStatus[2]) && questionNumber-1!==qusNo">
+           <div style="background-color: #bdbdbd;" class="square">{{qusNo+1}}</div>
+         </div>
+         <div *ngIf="assessmentQuestions[qusNo].status == questionStatus[1] && questionNumber-1!==qusNo">
+           <div style="background-color: #5cb85c;" class="square">{{qusNo+1}}</div>
+         </div> 
+         <div *ngIf="questionNumber-1===qusNo" >
+           <div style="background-color: #42a5f5;" class="square">{{qusNo+1}}</div>
+         </div> 
+         <!--  (click)="getNextQuestion(qusNo+1)" -->
+         <div class="assessment-info-ques">
+          <a (click)="getNextQuestion(qusNo+1)" href="javascript:void(0)">{{assessmentQuestions[qusNo].question | words:7}}</a>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div *ngIf="questionsForReview.length===0" class="mt-3 no-data-msg">
+      <span>No question mark for review</span>      
+    </div>
+
+  </div>
+</div>
+</div>
+
+</div>
+<div class="assessment-info-footer">
+  <h3>Legend</h3>
+  <ul>
+    <li>
+      <a href="#">
+        <i class="fa fa-fw fa-circle green-icon"></i>Answered question
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="fa fa-fw fa-circle blue-icon"></i>Selected question
+      </a>
+    </li>
+  </ul>
+</div>
+</div>
+</div>
+
+
+
+<!-- question details modal start fron here  -->
+<div class="modal fade text-center" id="reportIssue" tabindex="-1" role="dialog"  
+aria-labelledby="title" aria-hidden="true"> <!-- data-backdrop="static" -->
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="title">Report an issue</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" #close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="row modal-body">
+      <label class="col-md-2">Description</label>
+      <textarea rows="5" [(ngModel)]="qusIssueDescription" class="col-md-8"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" [disabled]="!qusIssueDescription" class="btn btn-primary" (click)="saveReportIssue()" >Submit</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- question details modal end here  -->

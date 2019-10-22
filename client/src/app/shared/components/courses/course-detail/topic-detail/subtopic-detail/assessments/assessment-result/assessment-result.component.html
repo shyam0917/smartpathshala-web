@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-md-1 pl-0 pr-0">
+  </div>
+  <div class="col-md-11 pl-0 pr-3 container-fluid">
+
+   <div class="row breadcrumb">
+    <div class="col-8 text-left mt-2 mb-1 ">
+      <a class="page-heading" [routerLink]="['/', urlPrefix, 'courses']"><i class="fa fa-home" aria-hidden="true"></i> Courses</a> / 
+      <a class="page-heading" [routerLink]="['/', urlPrefix, 'courses',courseId]" [queryParams]="{'tab':'assessments'}"><i class="fa fa-home" aria-hidden="true"></i> Assessments</a> / 
+
+      <span class="breadcrumb-active">Results</span>
+    </div>
+    <div class="col-4 text-right">
+      <a class="btn btn-outline-info back"  [routerLink]="['/', urlPrefix, 'courses',courseId]" [queryParams]="{'tab':'assessments'}" ><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Back
+      </a>
+    </div>
+  </div>
+
+  <div class="container-section">
+    <div class="row add-new-container">
+      <div class="col-8 text-left ">
+        <h4><strong>{{assessmentInfo?.assessment}}</strong></h4><br/>
+      </div>
+    <!-- <div class="col-4 text-right">
+      <a class="btn btn-outline-info back" [routerLink]="['/', urlPrefix, 'courses']"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Back
+      </a>
+    </div> -->
+    <div class="mgt-10 ml-2">
+      <span class="ht-tm-element badge badge-danger">Type: {{assessmentInfo?.type}}</span> |
+      <span class="ht-tm-element badge badge-info">Level: {{assessmentInfo?.level}} </span> |
+      <span class="ht-tm-element badge badge-success">Questions: {{assessmentInfo?.totalQuestion}} </span> |
+      <span class="ht-tm-element badge badge-warning">Marks: {{assessmentInfo?.totalMarks}} </span> |
+      <span class="ht-tm-element badge badge-danger">Passing Percentage: {{assessmentInfo?.passPercentage}} %</span> |
+      <span class="ht-tm-element badge badge-primary">Max Time: {{assessmentInfo?.maxTime}} </span>
+    </div>
+  </div>
+ <!--  <div class="row">
+    <div class="col-12">
+     <p class="longDescription text-left">{{ assessmentInfo?.level}}</p>
+     <span class="ht-tm-element badge badge-danger">{{assessmentInfo?.level}}</span>
+   </div>
+ </div> -->
+ <hr>
+ <div class="table-responsive w-80 d-block d-md-table">
+  <table class="table">
+    <thead class="bg-info">
+      <tr>
+        <th>Correct Answered</th>
+        <th>Incorrect Answered</th>
+        <th>Score</th>
+        <th>Percentage</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let assessmentResult of assessmentResults">
+        <td>{{assessmentResult.correctAns}}</td>
+        <td>{{assessmentResult.totalQuestion-assessmentResult.correctAns}}</td>
+        <td>{{assessmentResult.score}}</td>
+        <td>{{assessmentResult.scorePercentage}}%</td>
+        <td [class.correct]="assessmentResult.resultStatus==='Pass'"
+        [class.incorrect]="assessmentResult.resultStatus==='Fail'">{{assessmentResult.resultStatus}}</td>
+        <td>{{assessmentResult.createdBy.date | date:'dd/MM/yyyy'}}</td>
+        <td>{{assessmentResult.createdBy.date | date:'shortTime'}}</td>
+        <td>
+          <div *ngIf="role==config.USER_STUDENT; else elseblock; then thenblock;"></div>
+          <ng-template #thenblock>
+           <a href="#" [routerLink]="['/',urlPrefix,'course-details',courseId,'assessments','result','detail',assessmentResult._id]">View</a>
+         </ng-template>
+         <ng-template #elseblock>
+           <a href="#" [routerLink]="['/',urlPrefix,'courses',courseId,'assessments', assessmentId, 'result','detail',assessmentResult._id]">View</a>
+         </ng-template>
+       </td>
+     </tr>
+   </tbody>
+ </table>
+</div>
+</div>
+</div>
+</div>

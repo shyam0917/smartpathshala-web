@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-md-1 pl-0 pr-0">
+  </div>
+  <div class="col-md-11 pl-0 pr-3 container-fluid">
+
+    <div class="row breadcrumb">
+      <div class="col-8 text-left mt-2 mb-1 ">
+        <a class="page-heading" [routerLink]="['/', urlPrefix, 'courses']"><i class="fa fa-home" aria-hidden="true"></i> Courses</a> / 
+        <a class="page-heading" [routerLink]="['/', urlPrefix, 'courses',courseId]" [queryParams]="{'tab':'assessments'}"><i class="fa fa-home" aria-hidden="true"></i> Assessments</a> / 
+
+        <a class="page-heading" [routerLink]="['/', urlPrefix, 'courses', courseId,'assessments', assessmentId, 'result']" ><i class="fa fa-home" aria-hidden="true"></i> Results</a> / 
+
+        <span class="breadcrumb-active">Details</span>
+      </div>
+      <div class="col-4 text-right">
+        <a class="btn btn-outline-info back"  [routerLink]="['/', urlPrefix, 'courses', courseId,'assessments', assessmentId, 'result']" ><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Back
+        </a>
+      </div>
+    </div>
+
+
+    <div class="container-section">
+      <div class="row add-new-container">
+        <div class="col-8 text-left ">
+          <h4><strong>Assessment Result Details</strong></h4><br/>
+        </div>
+    <!-- <div class="col-4 text-right">
+      <a class="btn btn-outline-info back" [routerLink]="['/', urlPrefix, 'courses']"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Back
+      </a>
+    </div> -->
+  </div>
+  <hr>
+  <div *ngIf="appendInfo" class="table-responsive w-100 d-block d-md-table">
+    <table class="table">
+      <thead class="bg-info">
+        <tr>
+         <th>Question</th>
+         <th>Student Answer</th>
+         <th>Correct Answer</th>
+         <th>Answer Description</th>
+         <th>Status</th>
+       </tr>
+     </thead>
+     <tbody>
+      <tr *ngFor="let assessmentResultDetail of assessmentResultDetails">
+        <td>{{assessmentResultDetail.question}}</td>
+        <td>{{assessmentResultDetail.userAnswers}}</td>
+        <td>{{assessmentResultDetail.answers}}</td>
+        <td>{{assessmentResultDetail.solution}}</td>
+        <td class="text-left" 
+        [class.correct]="assessmentResultDetail.ansStatus==='Correct'"
+        [class.incorrect]="assessmentResultDetail.ansStatus==='Incorrect'">{{assessmentResultDetail.ansStatus}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- card for small device view start here-->
+<div *ngIf="!appendInfo" class="row report-container">
+  <div class="card col-sm-12" *ngFor="let assessmentResultDetail of assessmentResultDetails; let i=index;" >
+    <div class="card-header">
+      <br/>
+      <strong>Question {{i+1}}:&nbsp;{{assessmentResultDetail.question}}</strong><br/>
+      <br/>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        <strong>User Answer:</strong>&nbsp;
+        <span>{{assessmentResultDetail.userAnswers}}</span><br/><br/>
+        <strong>Answer:</strong>&nbsp;
+        <span>{{assessmentResultDetail.answers}}</span><br/><br/>
+        <span *ngIf="assessmentResultDetail.solution">
+          <strong>Description:</strong>&nbsp;
+          <span>{{assessmentResultDetail.solution}}</span><br/><br/>
+        </span>
+        <strong>Status:</strong>&nbsp;
+        <span *ngIf="assessmentResultDetail.ansStatus==='Correct'" class="badge badge-success">{{assessmentResultDetail.ansStatus}}</span>
+        <span *ngIf="assessmentResultDetail.ansStatus==='Incorrect'" class="badge badge-danger">{{assessmentResultDetail.ansStatus | uppercase}}</span>
+      </p>
+    </div>
+  </div>
+</div>
+<!-- card end here -->  
+</div>
+</div>
+</div>

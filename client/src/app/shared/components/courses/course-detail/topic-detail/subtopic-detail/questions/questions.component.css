@@ -1,0 +1,99 @@
+.card-section {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-top: 25px;
+}
+.card-title {
+  background-color: rgb(52, 113, 127);
+  height: 45px;
+  color: #fff;
+  padding-top: 10px;
+  padding-left: 12px;
+}
+.no-data {
+  background-color: #eff0f1;
+  height: 38px;
+  font-weight: 300;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #53585F;
+}
+.card {
+  border:none;
+}
+.collapse {
+  border: 1px solid;
+  border-color: rgba(0, 0, 0, 0.125);
+  margin-bottom: 8px;
+}
+.content {
+  margin-top: 15px;
+  padding-bottom: 26px;
+  word-wrap: break-word;
+}
+.qs {
+  background-color: #CFD8DC;
+}
+.qs p{
+  margin-top: 16px;
+}
+.opt {
+  margin-top: 13px!important;
+}
+.opt strong {
+  width: 8%;
+}
+.opt h6 {
+  width: 92%;
+  margin-bottom: 0px;
+  margin-top: 4px;
+}
+.sol h6 {
+  margin-bottom: 0px;
+  margin-top: 4px;
+  /* margin-left: 15px;*/
+}
+.sol p{
+  margin-bottom: 0px;
+}
+@media (max-width: 992px) and (min-width: 768px){
+  .sol h6{
+    padding-left: 22px;
+  }
+}
+
+@media(min-width: 768px){
+  .spc {
+    margin-top: 10px !important;
+  }
+}
+.csp-title {
+  width: 80%;
+}
+.tgl-icon {
+  width: 19%;
+  margin-top: -20px;
+}
+@media(max-width: 768px){
+  .csp-title{
+    font-size: 16px;
+    padding-top: 3px;
+  }
+}
+
+.spc div {
+  padding-right: 0px !important;
+}
+
+@media (max-width: 992px) and (min-width: 768px) {
+  .sol h6 {
+    padding-left: 0px !important;
+  }
+  .sol .col-md-10 {
+    padding-left: 0px !important;
+  }
+}
+
+strong {
+  font-size: 14px !important;
+}

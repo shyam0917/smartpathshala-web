@@ -1,0 +1,69 @@
+<div class="container-section" >
+  <div class="row add-new-container" *ngIf="role==CONFIG.USER_STUDENT">
+    <div class="col-8 text-left ">
+      <h3 class="page-heading">Assessments</h3><br/>
+    </div>
+    <div class="col-4 text-right">
+      <a class="btn btn-outline-info back" [routerLink]="['/', urlPrefix, 'course-details',courseId]"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Back
+      </a>
+    </div>
+  </div>
+  <div class="col-md-12" [class.container-section]="role==CONFIG.USER_STUDENT">
+    <div class="cstm-container" [class.cstm-container-full]="role==CONFIG.USER_STUDENT" >
+     <div class="table-responsive">
+      <table class="table table-scroll">
+       <thead class="">
+        <tr class="col-md-12">
+          <th>Assessment</th>
+          <th class="text-center">Level</th>
+          <th class="text-center">Max Time</th>
+          <th class="text-center">Questions</th>
+          <th class="text-center">Max Marks</th>
+          <th class="text-center">Passing %</th>
+          <th class="text-center" *ngIf="CONFIG.ADMIN.indexOf(role) > -1 || courseOwnerUserId == userId">Opreation</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+      <!--  <tr> -->
+      <div class="col-12 text-center no-data" *ngIf="assessments.length===0">No data avaliable</div>
+      <!-- </tr> -->
+      <tbody [class.tbody-full]="role==CONFIG.USER_STUDENT">
+        <!-- (click)="getAssessmentDetails(data._id)" -->
+        <tr *ngFor="let data of assessments; let i=index; ">
+          <td>{{data.assessment}}</td>
+          <td class="text-center">{{data.level}}</td>
+          <td class="text-center">{{data.maxTime}}</td>
+          <td class="text-center">{{data.totalQuestion}}</td>
+          <td class="text-center">{{data.totalMarks}}</td>
+          <td class="text-center">{{data.passPercentage}}%</td>
+          <td class="text-center pl-0" *ngIf="CONFIG.ADMIN.indexOf(role) > -1 || courseOwnerUserId == userId"> <button type="button" class="btn btn-light btn-sm" title="Edit Assessment" [routerLink]="['/', urlPrefix, 'courses',courseId,'assessments','edit',data._id]">
+            <span class="fa fa-pencil"></span>
+          </button>
+
+          <button type="button" class="btn btn-light btn-sm" (click)="deleteAssessment(data._id)" title="Delete Assessment">
+            <span class="fa fa-trash"></span>
+          </button></td>
+          <td class="text-center pl-0">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <div *ngIf="role==CONFIG.USER_STUDENT; else elseblock; then thenblock;"></div>
+              <ng-template #thenblock>
+               <button type="button" class="btn btn-info mr-2" [routerLink]="['/', urlPrefix, 'course-details', courseId, 'assessments', 'play-assessment',data._id]"
+               >Take</button>
+               <button type="button" class="btn btn-success" [routerLink]="['/', urlPrefix, 'course-details', courseId, 'assessments', 'result',data._id]">Result</button>
+             </ng-template>
+
+             <ng-template #elseblock>
+              <button type="button" class="btn btn-info mr-2" [routerLink]= "['/', urlPrefix,'courses', courseId, 'assessments', data._id, 'play-assessment']" >Take</button>
+
+              <button type="button" class="btn btn-success" [routerLink]="['/', urlPrefix, 'courses', courseId,'assessments', data._id, 'result']">Result</button>
+            </ng-template >
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+</div>

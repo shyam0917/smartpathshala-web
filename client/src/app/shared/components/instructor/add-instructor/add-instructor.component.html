@@ -1,0 +1,162 @@
+<div class="container-section">
+	<div class="row">
+		<div class="col-md-1 pl-0 pr-0">
+		</div>
+		<div class="col-md-11">
+			<div class="container-fluid">
+				<div class="row breadcrumb">
+					<div class="col-8 text-left mt-2 mb-1 ">
+						<a class="page-heading" [routerLink]="['/', urlPrefix, 'instructors']"><i class="fa fa-home" aria-hidden="true"></i> Instructors</a> / <span class="breadcrumb-active">Add a new instructor</span>
+						<!-- <span class="breadcrumb-active">Update instructor</span> -->
+					</div>
+					<div class="col-4 text-right">
+						<a class="btn btn-outline-info back" [routerLink]="['/', urlPrefix, 'instructors']"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Back
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 pt-4">
+						<h2 class="legend">Add a new instructor</h2>
+            <!--   <div *ngIf="updateCategoryId; else elsblock; then thenblock;"></div>
+      <ng-template #elsblock>
+        <h2 class="legend">Add a new category</h2>
+      </ng-template>
+      <ng-template #thenblock>
+        <h2 class="legend">Update category</h2>
+      </ng-template>
+    </div> -->
+  </div>
+</div>
+<div class="row">
+	<div class="col-12 text-center errMessage" *ngIf="errorMessage">
+		<h6>{{errorMessage}}</h6>
+	</div>
+	<div *ngIf="backendErrorMsg">
+		<ul>
+			<li class="backend-errors" *ngFor="let msg of backendErrorMsg.slice().reverse() ">{{msg}}</li>
+		</ul>
+	</div>
+</div>
+<div>
+	<form role="form" [formGroup]="instructorFormData">
+		<div class="row">
+			<div class="col-12">
+				<div class="form-group ">
+					<div class="row pt-4">
+						<label for="name" class="col-sm-2 text-left form-label">
+							<span class="form_required">*</span> Name
+						</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" formControlName="name" />
+							<div *ngIf="instructorFormData.get('name').touched && instructorFormData.get('name').errors">
+								<div class="error">
+									Name is required.
+								</div>
+							</div>
+						</div>
+						<label for="email" class="col-sm-2 text-left form-label">
+							<span class="form_required">*</span> Email
+						</label>
+						<div class="col-sm-3">
+							<input type="email" class="form-control" formControlName="email" />
+							<div *ngIf="instructorFormData.get('email').touched && instructorFormData.get('email').errors">
+								<div class="error">
+									Email is required.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row pt-4">
+						<label for="mobile" class="col-sm-2 text-left form-label">
+							<span class="form_required">*</span> Mobile
+						</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" formControlName="mobile" />
+							<div *ngIf="instructorFormData.get('mobile').touched && instructorFormData.get('mobile').errors">
+								<div class="error">
+									Mobile No is required.
+								</div>
+							</div>
+						</div>
+						<label for="gender" class="col-sm-2 text-left form-label">
+							<span class="form_required">*</span> Gender
+						</label>
+						<div class="col-sm-3">
+							<select class="form-control" formControlName="gender">
+								<option>Male</option>
+								<option>Female</option>
+							</select>
+							<div *ngIf="instructorFormData.get('gender').touched && instructorFormData.get('gender').errors">
+								<div class="error">
+									Gender is required.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row pt-4">
+						<label for="address" class="col-sm-2 text-left form-label">
+							<span class="form_required">*</span> Address
+						</label>
+						<div class="col-sm-8">
+							<textarea class="form-control" formControlName="address"></textarea>
+							<div *ngIf="instructorFormData.get('address').touched && instructorFormData.get('address').errors">
+								<div class="error">
+									Address is required.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row pt-4">
+						<label for="codestripperid" class="col-sm-2 text-left form-label">
+							<span class="form_required">*</span> Codestripper- Id
+						</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" formControlName="codestripperId" />
+							<div *ngIf="instructorFormData.get('codestripperId').touched && instructorFormData.get('codestripperId').errors">
+								<div class="error">
+									Codestripper- Id is required.
+								</div>
+							</div>
+						</div>
+						<label for="codestripperemail" class="col-sm-2 text-left form-label">
+							<span class="form_required">*</span> Codestripper- Email
+						</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" formControlName="codestripperEmail" />
+							<div *ngIf="instructorFormData.get('codestripperEmail').touched && instructorFormData.get('codestripperEmail').errors">
+								<div class="error">
+									Codestripper- Id is required.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row pt-4">
+						<label for="Technical skills" class="col-sm-2 text-left form-label">
+							<span class="form_required">*</span> Technical Skills
+						</label>
+						<div class="col-sm-8">
+							<angular2-multiselect [ngModelOptions]="{standalone: true}" [data]="skillList" [(ngModel)]="selectedSkills" [settings]="skillsConfig"></angular2-multiselect>
+						</div>
+					</div>
+					<div class="row pt-4 text-center">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-8">
+							<button type="button" class="btn btn-default" (click)="initializeForm()">Reset</button>
+							<button type="button" class="btn btn-save" title="Save" [disabled]="!instructorFormData.valid" (click)="save(instructorFormData)" [ngStyle]="{'cursor':instructorFormData.valid ? 'pointer' : 'not-allowed' }">
+								Save
+							</button>
+							<!-- <button class="btn btn-default" (click)="initializeForm()">Reset</button>  -->
+                      <!--  <button type="button" class="btn btn-update" title="Update" [disabled]="!instructorFormData.valid" (click)="update(instructorFormData)" [ngStyle]="{'cursor':instructorFormData.valid ? 'pointer' : 'not-allowed' }">
+                Update
+              </button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+</div>
+</div>
+</div>

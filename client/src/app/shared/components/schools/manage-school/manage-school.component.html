@@ -1,0 +1,151 @@
+<div class="body">
+  <div class="row reg-form-container">
+   <div class="col-xl-2 col-lg-8 col-md-1"></div>
+   <div class=" col-xl-8 col-lg-8 col-md-10 col-sm-12 reg-form">
+     <h1 *ngIf="formType=='add'" class="flow-h1">School Registration</h1>
+     <h1 *ngIf="formType=='edit'" class="flow-h1">Update Student</h1>
+
+     <!-- error and success message div start here -->
+     <div *ngIf="errorMessage" class="alert alert-danger danger-alert text-center" role="alert">
+       <strong>{{errorMessage}}</strong>
+     </div>
+     <div *ngIf="successMessage" class="alert alert-success custom-success-alert text-center" role="alert">
+       <strong>{{successMessage}}</strong>
+     </div>
+     <!-- error and success message div end here -->
+
+     <form [formGroup]="schForm" >
+       <div class="row">
+
+         <div class="col-md-1"></div>
+         <div class="form-group col-md-5" >
+           <span class="mendatoryField">*</span>
+           <input type="text" formControlName="schoolName" placeholder="School name"
+           [class.input-danger]="schForm.get('schoolName').touched && schForm.get('schoolName').errors">
+           <div *ngIf="schForm.get('schoolName').touched && schForm.get('schoolName').errors">
+             <div class="error-msg ml-4" *ngIf="schForm.get('schoolName').errors.required">
+              School name is required
+            </div>
+            <div class="error-msg ml-4" *ngIf="schForm.get('schoolName').errors.pattern">
+              Please enter valid school name
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-5" >
+         <span class="mendatoryField">*</span>
+         <input type="email" [readonly]="formType=='edit'"
+         formControlName="email" placeholder="Email" class="txt-trans" [class.input-danger]="schForm.get('email').touched && schForm.get('email').errors">
+         <div *ngIf="schForm.get('email').touched && schForm.get('email').errors">
+           <div class="error-msg ml-4" *ngIf="schForm.get('email').errors.required">
+             Email is required
+           </div>
+           <div class="error-msg ml-4" *ngIf="schForm.get('email').errors.pattern">
+             Please enter valid email
+           </div>
+         </div>
+       </div>
+       <div class="col-md-1"></div>
+
+       <div class="col-md-1"></div>
+       <div class="form-group col-md-5" >
+         <span class="mendatoryField">*</span>
+         <input type="text" formControlName="phoneNo" placeholder="Mobile number" [class.input-danger]="schForm.get('phoneNo').touched && schForm.get('phoneNo').errors">
+         <div *ngIf="schForm.get('phoneNo').touched && schForm.get('phoneNo').errors">
+           <div class="error-msg ml-4" *ngIf="schForm.get('phoneNo').errors.required">
+             Mobile number is required
+           </div>
+           <div class="error-msg ml-4" *ngIf="schForm.get('phoneNo').errors.pattern || schForm.get('phoneNo').errors.maxlength">
+             Please enter valid mobile number
+           </div>
+         </div>
+       </div>
+       <div class="form-group col-md-5" >
+         <span class="mendatoryField">*</span>
+         <input type="text" formControlName="address" placeholder="Address" [class.input-danger]="schForm.get('address').touched && schForm.get('address').errors" >
+         <div *ngIf="schForm.get('address').touched && schForm.get('address').errors">
+           <div class="error-msg ml-4" *ngIf="schForm.get('address').errors.required">
+             Address is required
+           </div>
+         </div>
+       </div>
+       <div class="col-md-1"></div>
+
+       <div class="col-md-1"></div>
+       <div class="form-group col-md-5" >
+         <span class="mendatoryField">*</span>
+         <input type="text" formControlName="city" placeholder="City" [class.input-danger]="schForm.get('city').touched && schForm.get('city').errors">
+         <div *ngIf="schForm.get('city').touched && schForm.get('city').errors">
+           <div class="error-msg ml-4" *ngIf="schForm.get('city').errors.required">
+             City is required
+           </div>
+           <div class="error-msg ml-4" *ngIf="schForm.get('city').errors.pattern">
+             Please enter valid city name
+           </div>
+         </div>
+       </div>
+       <div class="form-group col-md-5" >
+         <span class="mendatoryField">*</span>
+         <input type="text" formControlName="state" placeholder="State" [class.input-danger]="schForm.get('state').touched && schForm.get('state').errors">
+         <div *ngIf="schForm.get('state').touched && schForm.get('state').errors">
+           <div class="error-msg ml-4" *ngIf="schForm.get('state').errors.required">
+             State is required
+           </div>
+           <div class="error-msg ml-4" *ngIf="schForm.get('state').errors.pattern || schForm.get('state').errors.maxlength">
+             Please enter valid state name
+           </div>
+         </div>
+       </div>
+       <div class="col-md-1"></div>
+
+       <div class="col-md-1"></div>
+       <div class="form-group col-md-5" >
+         <span class="mendatoryField">*</span>
+         <input type="text" formControlName="zipCode" placeholder="Zip code" [class.input-danger]="schForm.get('zipCode').touched && schForm.get('zipCode').errors">
+         <div *ngIf="schForm.get('zipCode').touched && schForm.get('zipCode').errors">
+           <div class="error-msg ml-4" *ngIf="schForm.get('zipCode').errors.required">
+             Zip code is required
+           </div>
+           <div class="error-msg ml-4" *ngIf="schForm.get('zipCode').errors.pattern || schForm.get('zipCode').errors.maxlength">
+             Please enter valid zip code
+           </div>
+         </div>
+       </div>
+       <div class="form-group col-md-5" >
+         <input type="text" formControlName="website" placeholder="Website" class="txt-trans" [class.input-danger]="schForm.get('website').touched && schForm.get('website').errors">
+         <div *ngIf="schForm.get('website').touched && schForm.get('website').errors">
+           <div class="error-msg ml-4" *ngIf="schForm.get('website').errors.pattern || schForm.get('website').errors.maxlength">
+             Please enter valid website
+           </div>
+         </div>
+       </div>
+       <div class="col-md-1"></div>
+
+       <div class="col-md-1"></div>
+       <div class="form-group col-md-5">
+        <div class="row col-md-12 radio-btn">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input checkbox-custom"
+            name="status" formControlName="status" [value]='status.ACTIVE' >
+            Active
+          </label>
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input checkbox-custom"
+            name="status" formControlName="status" [value]='status.INACTIVE'>
+            In Active
+          </label>
+        </div>
+      </div>
+
+      <div class=" col-12 form-actions">
+       <!---->
+       <button type="button" [routerLink]="['/', urlPrefix, 'schools']"  class="btn btn-default">Cancel</button>
+       <button *ngIf="formType=='add'" type="submit" class="btn btn-primary"  [disabled]="schForm.invalid"  (click)="register()">Submit</button>
+       <button *ngIf="formType=='edit'" type="submit" class="btn btn-primary"  [disabled]="schForm.invalid"   (click)="update()">Update</button>
+     </div>
+
+   </div>
+ </form>
+
+</div>
+</div>
+</div>

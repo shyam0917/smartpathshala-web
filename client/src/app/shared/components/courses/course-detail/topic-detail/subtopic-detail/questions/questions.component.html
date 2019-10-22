@@ -1,0 +1,66 @@
+    <div class="row">
+      <div class="card col-md-12 card-section" >
+        <div class="card-block">
+          <div class="row card-title">
+            <h4 class="text-left csp-title">Questions</h4>
+            <div class="text-right tgl-icon">
+              <i class="fa fa-2x fa-chevron-circle-down" id="" (click)="toggleCard('qus')" data-toggle="collapse" data-target="#qus" ></i>
+            </div>
+          </div>
+          <div id="qus" class="collapse show">
+           <div class="col-12 text-center no-data" *ngIf="questions.length===0">No data avaliable</div>
+           <div class="content" *ngFor="let qus of questions; let i=index" >
+             <div class="row">
+               <div class="col-md-11 qs">
+                 <p>Q{{i+1}}:- <span *ngIf="qus.question" [innerHtml]="qus.question"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span *ngIf="qus.qusIcon" class="text-right">
+                  <img [attr.src]="basePath+qus.qusIcon">
+                 </span>
+               </p>
+             </div>
+             <div class="col-md-1 qs" >
+               <p  *ngIf="CONFIG.ADMIN.indexOf(role) > -1 || questionOwnerUserId == userId">
+                 <a href="#" data-toggle="modal" data-target="#edit-qus"><i class="fa fa-pencil" aria-hidden="true" (click)=editQuestion(qus._id,qus.qusType)></i></a>
+                 <a (click)=deleteQuestion(qus._id)><i class="fa fa-trash" aria-hidden="true"></i></a>
+               </p>
+             </div>
+           </div>
+           <div class="row opt">
+            <div class="col-md-5 spc" *ngFor="let option of qus.options; let i=index;">
+              <div class="row ">
+                <strong>{{i+1}}.&nbsp;</strong>
+                <p *ngIf="option.text"  [innerHtml]="option.text"></p>
+                <p *ngIf="option.icon"><img [attr.src]="basePath+option.icon"></p>
+              </div>
+            </div>
+          </div>
+          <hr class="spc">
+          <div class="row sol spc">
+           <div class="col-xl-1 col-lg-1 col-md-2 col-sm-12"><strong>Categories:-</strong></div>
+           <div class="col-xl-11 col-lg-11 col-md-10 col-sm-12">
+            <span *ngFor="let category of qus.qusCategories; let i=index">{{category}}, </span>
+          </div>
+         </div>
+         <div class="row sol spc">
+           <div class="col-xl-1 col-lg-1 col-md-2 col-sm-12"><strong>Type:-</strong></div>
+           <div class="col-xl-11 col-lg-11 col-md-10 col-sm-12"><h6>{{qus.qusType}}</h6></div>
+         </div>
+         <div class="row sol spc" style="word-wrap: break-word;">
+           <div class="col-xl-1 col-lg-1 col-md-2 col-sm-12"><strong>Answers:-</strong></div>
+           <div class="col-xl-11 col-lg-11 col-md-10 col-sm-12"  *ngFor="let answer of qus.answers; let i=index;">
+            <p *ngIf="qus.options[answer.id].text" [innerHtml]="qus.options[answer.id].text"></p>
+            <p *ngIf="qus.options[answer.id].icon"><img [attr.src]="basePath+qus.options[answer.id].icon">
+            </p>
+          </div>
+         </div>
+         <div class="row sol spc">
+           <div class="col-xl-1 col-lg-1 col-md-2 col-sm-12"><strong>Solutions:-</strong></div>
+           <div class="col-xl-11 col-lg-11 col-md-10 col-sm-12">
+              <p *ngIf="qus.solution"  [innerHtml]="qus.solution"></p>
+              <p *ngIf="qus.solutionIcon"><img [attr.src]="basePath+qus.solutionIcon"></p>
+            </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div> 
+</div> 
