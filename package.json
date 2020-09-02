@@ -28,7 +28,7 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "get-video-id": "^2.1.5",
-    "googleapis": "^32.0.0",
+    "googleapis": "^39.1.0",
     "helmet": "^3.12.1",
     "http": "0.0.0",
     "jsonwebtoken": "^7.4.1",
