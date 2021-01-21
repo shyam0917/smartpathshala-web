@@ -50,7 +50,7 @@
     "querystring": "^0.2.0",
     "randomstring": "^1.1.5",
     "request": "^2.87.0",
-    "socket.io": "^2.1.1",
+    "socket.io": "^2.4.0",
     "unfurled": "^1.1.5",
     "uniqid": "^4.1.1",
     "url": "^0.11.0",
