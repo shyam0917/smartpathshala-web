@@ -37,7 +37,7 @@
 	"font-awesome": "^4.7.0",
 	"immutable": "^3.8.1",
 	"jquery": "^3.2.1",
-	"moment": "^2.18.1",
+	"moment": "^2.29.2",
 	"ng-drag-drop": "5.0.0",
 	"ng-email-validation": "^1.0.2",
 	"ng2-breadcrumbs": "^0.1.281",
